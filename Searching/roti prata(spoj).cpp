@@ -36,12 +36,12 @@ void print(int *a,int n)
 void chal(){cout<<"chal rha hun"<<endl;}
 //-------------------------------------------solve here---------------------------------//
 //auto stt=high_resolution_clock::now();
- 
+
 ll check(vec &v,ll t)
 {
 ll cnt=0;
 for(ll i:v)
-cnt+=(sqrt(1+8*(t/i))-1)/2;
+cnt+=(sqrt(1+8*(t/i))-1)/2;     you can also calculate it using binary search again to get max parata in time t;
 return cnt;
     
 }
