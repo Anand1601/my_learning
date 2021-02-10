@@ -2,6 +2,9 @@
 where f(1234)=1234+123+12+1=1370;
 input : n;
 output: x;
+
+time comlexity: (logn)*(logn) or for more precise the  log2(n)*log10(n);
+the log2(n) is for binary search and the second for the f(n) funcN
 */
 
 #include<iostream>
