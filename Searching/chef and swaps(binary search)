@@ -1,0 +1,122 @@
+/* Q.) we have an sorted array of n unique element (where n is even) . now chef perform an operation on the
+array some no. of times . the operation is:
+chef can choose two odd indices i and j and swap them.
+chef can choose an index only once.
+now we have the final array (after chef's operations ). 
+you have to find that integr "x" is present in this array;(in O(logn))
+_____________
+input:
+t
+n
+a1 a2... an
+x
+
+output:
+yes/no
+
+test case
+1
+5
+3 2 1 4 5
+3
+output :
+YES
+-----------------------------------------------
+*/
+#include<iostream>
+#include <bits/stdc++.h>
+using namespace std;
+using namespace std::chrono;   //----for_getting_execution_time
+#define ll long long
+#define fi first
+#define se second
+#define pri pair<ll,ll>
+#define M 1000000007
+#define pb(x) push_back(x)
+#define mpr(x,y) make_pair(x,y)
+#define wl(t) int t;cin>>t;while(t--)
+#define krish ios::sync_with_stdio(0),cout.tie(0),cin.tie(0)
+#define vec vector<ll> 
+#define inf 3e18
+#define ld long double
+
+//sort by second a pair
+bool bysec(pri a,pri b)  {return (a.se<b.se);}
+
+//sort by second in reverse order
+bool bysecriv(pri a,pri b){return (a.se>b.se);}
+
+//sort by first in reverse
+bool byrev(pri a , pri b){return (a.fi>a.fi);}
+//sort in reverse order
+bool rev(int a ,int b){ return (a>b);}
+
+void print(vec a)
+{
+    for(int i=0;i<a.size();i++)
+    cout<<a[i]<<" ";
+    cout<<endl;
+}
+
+void chal(){cout<<"chal rha hun"<<endl;}
+//-------------------------------------------solve here---------------------------------//
+//auto stt=high_resolution_clock::now();
+ll lower_bound_(vec &a,ll x)
+{
+    ll ans=0,l=2,r=a.size();
+    while(l<=r)
+    {
+        ll mid =(l+r)/2;
+        if(mid&1)
+        mid--;
+        if(a[mid]>=x)
+        ans=mid,r=mid-2;
+        else
+        l=mid+2;
+        
+    }
+    return ans;
+}
+
+
+
+
+int main() {
+    krish;
+    wl(t)
+{
+ll n;
+cin>>n;
+vec a(n+1);
+for(int i=1;i<=n;i++)
+cin>>a[i];
+ll x;
+cin>>x;
+ ll id=lower_bound_(a,x);
+ if(id==-1)
+ {
+     cout<<"NO"<<endl;
+ }
+ else
+ {
+     if(a[id]==x||a[id-1]==x)
+     cout<<"YES"<<endl;
+     else
+     {
+         ll id2=lower_bound_(a,a[id-1]);
+         if(id2>0&&a[id2-1]==x)
+         cout<<"YES"<<endl;
+         else
+         cout<<"NO"<<endl;
+     }
+     
+ }
+
+}
+
+
+// auto en=high_resolution_clock::now();
+// auto diff=duration_cast<microseconds>(en-stt);
+// cout<<diff.count()<<endl;
+    return 0;
+}
