@@ -2,11 +2,13 @@ package com.vishwa.MovieBookingSystem.controllers;
 
 import com.vishwa.MovieBookingSystem.Services.MovieService;
 import com.vishwa.MovieBookingSystem.enteties.Movie;
+import com.vishwa.MovieBookingSystem.exceptions.MovieDetailNotFoundException;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.slf4j.Logger;
@@ -60,7 +62,7 @@ public class MovieController {
 
 /*
 * Get all movies
-* 127.0.0.1.:8081/mbs/v1/movies
+* GET 127.0.0.1.:8081/mbs/v1/movies
 * */
     @GetMapping
     public ResponseEntity getAllMovies(){
@@ -68,6 +70,16 @@ public class MovieController {
         return new ResponseEntity(movies,HttpStatus.OK);
     }
 
+    /*
+    * Get Movie on the base of id
+    * GET 127.0.0.1.:8081/mbs/v1/movies/id
+    * @PathVariable used to give the path to the function,and here it will give the value to movieId
+    * */
+    @GetMapping("/{Id}")
+    public ResponseEntity getMovieBasedOnId(@PathVariable(name="Id") int movieId) throws MovieDetailNotFoundException {
+        Movie movie = movieService.getMovieDetails(movieId);
+        return new ResponseEntity(movie,HttpStatus.OK);
+    }
 
 
 }
