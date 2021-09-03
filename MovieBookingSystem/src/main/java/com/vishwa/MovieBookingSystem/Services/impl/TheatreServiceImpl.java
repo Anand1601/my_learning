@@ -1,7 +1,7 @@
 package com.vishwa.MovieBookingSystem.Services.impl;
 
 import com.vishwa.MovieBookingSystem.Services.TheatreService;
-import com.vishwa.MovieBookingSystem.dao.TheatreDao;
+import com.vishwa.MovieBookingSystem.daos.TheatreDao;
 import com.vishwa.MovieBookingSystem.enteties.Theatre;
 import com.vishwa.MovieBookingSystem.exceptions.TheatreDetailsNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;

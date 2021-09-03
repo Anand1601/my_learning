@@ -2,7 +2,7 @@ package com.vishwa.MovieBookingSystem.Services.impl;
 
 import com.vishwa.MovieBookingSystem.Services.UserService;
 import com.vishwa.MovieBookingSystem.Services.UserTypeService;
-import com.vishwa.MovieBookingSystem.dao.UserDao;
+import com.vishwa.MovieBookingSystem.daos.UserDao;
 import com.vishwa.MovieBookingSystem.enteties.User;
 import com.vishwa.MovieBookingSystem.exceptions.UserDetailsNotFoundException;
 import com.vishwa.MovieBookingSystem.exceptions.UserNameAlreadyExistsException;
@@ -10,7 +10,6 @@ import com.vishwa.MovieBookingSystem.exceptions.UserTypeDetailsNotFoundException
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.Optional;
 @Service
 public class UserServiceImpl implements UserService {
     @Autowired

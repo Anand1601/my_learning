@@ -1,7 +1,7 @@
 package com.vishwa.MovieBookingSystem.Services.impl;
 
 import com.vishwa.MovieBookingSystem.Services.UserTypeService;
-import com.vishwa.MovieBookingSystem.dao.UserTypeDao;
+import com.vishwa.MovieBookingSystem.daos.UserTypeDao;
 import com.vishwa.MovieBookingSystem.enteties.UserType;
 import com.vishwa.MovieBookingSystem.exceptions.UserTypeDetailsNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;

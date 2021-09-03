@@ -1,7 +1,7 @@
 package com.vishwa.MovieBookingSystem.service.Impl;
 
 import com.vishwa.MovieBookingSystem.Services.impl.CityServiceImpl;
-import com.vishwa.MovieBookingSystem.dao.CityDao;
+import com.vishwa.MovieBookingSystem.daos.CityDao;
 import com.vishwa.MovieBookingSystem.enteties.City;
 import com.vishwa.MovieBookingSystem.exceptions.CityDetailsNotFoundException;
 import org.junit.jupiter.api.Assertions;

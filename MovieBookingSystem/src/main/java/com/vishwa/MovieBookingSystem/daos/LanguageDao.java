@@ -1,9 +1,8 @@
-package com.vishwa.MovieBookingSystem.dao;
+package com.vishwa.MovieBookingSystem.daos;
 
 import com.vishwa.MovieBookingSystem.enteties.Language;
 import org.springframework.data.jpa.repository.JpaRepository;
 
-import java.util.List;
 import java.util.Optional;
 
 public interface LanguageDao extends JpaRepository<Language,Integer> {

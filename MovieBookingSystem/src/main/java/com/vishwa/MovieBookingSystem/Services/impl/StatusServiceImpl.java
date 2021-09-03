@@ -1,7 +1,7 @@
 package com.vishwa.MovieBookingSystem.Services.impl;
 
 import com.vishwa.MovieBookingSystem.Services.StatusService;
-import com.vishwa.MovieBookingSystem.dao.StatusDao;
+import com.vishwa.MovieBookingSystem.daos.StatusDao;
 import com.vishwa.MovieBookingSystem.enteties.Status;
 import com.vishwa.MovieBookingSystem.exceptions.StatusDetailsNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;

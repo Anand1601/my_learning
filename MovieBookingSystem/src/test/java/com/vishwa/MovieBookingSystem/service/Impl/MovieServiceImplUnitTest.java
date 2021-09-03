@@ -1,7 +1,7 @@
 package com.vishwa.MovieBookingSystem.service.Impl;
 
 import com.vishwa.MovieBookingSystem.Services.impl.MovieServiceImpl;
-import com.vishwa.MovieBookingSystem.dao.MovieDao;
+import com.vishwa.MovieBookingSystem.daos.MovieDao;
 import com.vishwa.MovieBookingSystem.enteties.Movie;
 import com.vishwa.MovieBookingSystem.enteties.Status;
 import com.vishwa.MovieBookingSystem.exceptions.MovieDetailNotFoundException;
@@ -47,7 +47,7 @@ public void beforeTest(){
     status.setStatusName("RELEASED");
     movie.setStatus(status);
     movie.setMovieId(1);
-        movie.setTrailerUrl("T_url");
+    movie.setTrailerUrl("T_url");
 
         /*
         * Adding the functionality on MovieDao

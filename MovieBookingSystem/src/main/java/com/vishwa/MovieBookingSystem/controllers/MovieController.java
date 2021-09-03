@@ -1,18 +1,24 @@
 package com.vishwa.MovieBookingSystem.controllers;
 
 import com.vishwa.MovieBookingSystem.Services.MovieService;
+import com.vishwa.MovieBookingSystem.Services.StatusService;
+import com.vishwa.MovieBookingSystem.Services.impl.StatusServiceImpl;
+import com.vishwa.MovieBookingSystem.dtos.MovieDTO;
 import com.vishwa.MovieBookingSystem.enteties.Movie;
+import com.vishwa.MovieBookingSystem.enteties.Status;
 import com.vishwa.MovieBookingSystem.exceptions.MovieDetailNotFoundException;
+import com.vishwa.MovieBookingSystem.exceptions.StatusDetailsNotFoundException;
+import org.modelmapper.ModelMapper;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import org.slf4j.Logger;
 
+import javax.print.attribute.standard.Media;
+import java.util.ArrayList;
 import java.util.List;
 
 /*
@@ -38,8 +44,13 @@ import java.util.List;
 public class MovieController {
 
     private static final Logger LOGGER = (Logger) LoggerFactory.getLogger(MovieController.class);
+
+    @Autowired
+    private ModelMapper modelMapper;
     @Autowired
     private MovieService movieService;
+     @Autowired
+     private   StatusService statusService ;
     /*
     *127.0.0.1.:8081/mbs/v1/movies/greetings
     *
@@ -67,19 +78,105 @@ public class MovieController {
     @GetMapping
     public ResponseEntity getAllMovies(){
         List<Movie> movies = movieService.getAllMoviesDetails();
-        return new ResponseEntity(movies,HttpStatus.OK);
+        /*
+        * we can return the answer directly as ---
+        * -->return new ResponseEntity(movies,HttpStatus.OK);
+        * but it is wrong to convert the entity class directly to JSON, also it may possible that the entity class contains
+        * some more data that you don't want a user/client should know so we should make a new package DTO(data
+        * transfer object) which contains corresponding DTO classes for every entity.
+        *
+        *  */
+
+List<MovieDTO> movieDTOS=new ArrayList<>();
+
+        for(Movie movie:movies)
+        {
+            movieDTOS.add(movieService.convertToMovieDTO(movie));
+        }
+
+return new ResponseEntity(movieDTOS,HttpStatus.OK);
+
     }
 
     /*
     * Get Movie on the base of id
-    * GET 127.0.0.1.:8081/mbs/v1/movies/id
+    * GET 127.0.0.1:8081/mbs/v1/movies/id
     * @PathVariable used to give the path to the function,and here it will give the value to movieId
     * */
     @GetMapping("/{Id}")
     public ResponseEntity getMovieBasedOnId(@PathVariable(name="Id") int movieId) throws MovieDetailNotFoundException {
-        Movie movie = movieService.getMovieDetails(movieId);
-        return new ResponseEntity(movie,HttpStatus.OK);
+        Movie movie =   movieService.getMovieDetails(movieId);
+
+
+                MovieDTO movieDTO = convertToMovieDTO(movie);
+        return new ResponseEntity(movieDTO,HttpStatus.OK);
     }
+
+    /*
+    * Creating new movie
+    *POST 127.0.0.1:8081/mbs/v1/movies
+    * consume = what kind of data the method consume
+    * produces = what kind of data the method return or produces
+    * @RequestBody = used to convert the JSON to MovieDTO and giving it.
+    * */
+@PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE,produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity createMovie(@RequestBody MovieDTO movieDTO) throws StatusDetailsNotFoundException {
+        //I need to create the new movie
+        //I need to create Movie object from MovieDTO object
+
+    Movie movie = modelMapper.map(movieDTO,Movie.class);
+    //movie object should contain status object that must not null :injecting the status object in movie obj
+    Status status= statusService.getStatusDetails(movieDTO.getStatus_id());
+    movie.setStatus(status);
+    Movie savedMovie = movieService.acceptMovieDetails(movie);
+        //I need to return the response
+        MovieDTO responseBody = modelMapper.map(savedMovie,MovieDTO.class);
+        return new ResponseEntity(responseBody,HttpStatus.CREATED);
+    }
+
+    /*
+    * I would like to update an already existing movie
+    * PUT 127.0.0.1:8081/mbs/v1/movies/{movieId}
+    * Json body has to be passed
+    *
+    * */
+
+    @PutMapping(value="/{movieId}",consumes = MediaType.APPLICATION_JSON_VALUE,
+            produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity updateMovieDetails(@RequestBody MovieDTO movieDTO,
+                                             @PathVariable(name="movieId") int movieId) throws MovieDetailNotFoundException {
+        //first check if the movie present in the system or not, if not it will throw the exception
+        Movie storedMovie = movieService.getMovieDetails(movieId);
+
+        Movie movieTOBeUpdated = modelMapper.map(movieDTO,Movie.class);
+        Movie savedMovie = movieService.updateMovieDetails(movieId,movieTOBeUpdated);
+
+        return new ResponseEntity(modelMapper.map(savedMovie,MovieDTO.class),HttpStatus.ACCEPTED);
+
+
+    }
+
+    /*
+    * to delete existing movie
+    * DELETE 127.0.0.1:8081/mbs/v1/movies/{movieId}
+    * */
+@DeleteMapping(value = "/{movieId}")
+public ResponseEntity deleteMovie(@PathVariable(name ="movieId") int id) throws MovieDetailNotFoundException {
+    movieService.deleteMovie(id);
+    return new ResponseEntity("DELETED",HttpStatus.OK);
+}
+
+    /*
+    * there are two way to converting the Movie class to MovieDao :
+    * one is by using MovieServices which take a lot of code to write
+    * the other is using model mapper
+    * */
+    private MovieDTO convertToMovieDTO(Movie movie)
+    {
+        return   modelMapper.map(movie,MovieDTO.class);
+
+    }
+
 
 
 }

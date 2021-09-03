@@ -1,7 +1,7 @@
 package com.vishwa.MovieBookingSystem.Services.impl;
 
 import com.vishwa.MovieBookingSystem.Services.*;
-import com.vishwa.MovieBookingSystem.dao.*;
+import com.vishwa.MovieBookingSystem.daos.*;
 import com.vishwa.MovieBookingSystem.enteties.*;
 import com.vishwa.MovieBookingSystem.exceptions.*;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,7 +10,6 @@ import org.springframework.stereotype.Service;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Set;
 
 @Service
 public class InitServiceImpl implements InitService {

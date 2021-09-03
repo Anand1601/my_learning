@@ -1,4 +1,4 @@
-package com.vishwa.MovieBookingSystem.dao;
+package com.vishwa.MovieBookingSystem.daos;
 
 import com.vishwa.MovieBookingSystem.enteties.UserType;
 import org.springframework.data.jpa.repository.JpaRepository;

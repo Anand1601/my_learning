@@ -3,7 +3,7 @@ package com.vishwa.MovieBookingSystem.Services.impl;
 import com.vishwa.MovieBookingSystem.Services.MovieService;
 import com.vishwa.MovieBookingSystem.Services.MovieTheatreService;
 import com.vishwa.MovieBookingSystem.Services.TheatreService;
-import com.vishwa.MovieBookingSystem.dao.MovieTheatreDao;
+import com.vishwa.MovieBookingSystem.daos.MovieTheatreDao;
 import com.vishwa.MovieBookingSystem.enteties.MovieTheatre;
 import com.vishwa.MovieBookingSystem.exceptions.MoiveTheatreDetailsNotFoundException;
 import com.vishwa.MovieBookingSystem.exceptions.MovieDetailNotFoundException;

@@ -1,10 +1,9 @@
 package com.vishwa.MovieBookingSystem.Services.impl;
 
 import com.vishwa.MovieBookingSystem.Services.CityService;
-import com.vishwa.MovieBookingSystem.dao.CityDao;
+import com.vishwa.MovieBookingSystem.daos.CityDao;
 import com.vishwa.MovieBookingSystem.enteties.City;
 import com.vishwa.MovieBookingSystem.exceptions.CityDetailsNotFoundException;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
