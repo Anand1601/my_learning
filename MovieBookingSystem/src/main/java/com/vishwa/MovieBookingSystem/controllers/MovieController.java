@@ -3,10 +3,12 @@ package com.vishwa.MovieBookingSystem.controllers;
 import com.vishwa.MovieBookingSystem.Services.MovieService;
 import com.vishwa.MovieBookingSystem.Services.StatusService;
 import com.vishwa.MovieBookingSystem.Services.impl.StatusServiceImpl;
+import com.vishwa.MovieBookingSystem.Validators.MovieDTOValidator;
 import com.vishwa.MovieBookingSystem.dtos.MovieDTO;
 import com.vishwa.MovieBookingSystem.enteties.Movie;
 import com.vishwa.MovieBookingSystem.enteties.Status;
 import com.vishwa.MovieBookingSystem.exceptions.MovieDetailNotFoundException;
+import com.vishwa.MovieBookingSystem.exceptions.MovieInvalidNameException;
 import com.vishwa.MovieBookingSystem.exceptions.StatusDetailsNotFoundException;
 import org.modelmapper.ModelMapper;
 import org.slf4j.LoggerFactory;
@@ -49,8 +51,13 @@ public class MovieController {
     private ModelMapper modelMapper;
     @Autowired
     private MovieService movieService;
+
      @Autowired
      private   StatusService statusService ;
+
+     @Autowired
+    private MovieDTOValidator movieDTOValidator;
+
     /*
     *127.0.0.1.:8081/mbs/v1/movies/greetings
     *
@@ -120,10 +127,12 @@ return new ResponseEntity(movieDTOS,HttpStatus.OK);
     * @RequestBody = used to convert the JSON to MovieDTO and giving it.
     * */
 @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE,produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity createMovie(@RequestBody MovieDTO movieDTO) throws StatusDetailsNotFoundException {
+    public ResponseEntity createMovie(@RequestBody MovieDTO movieDTO) throws StatusDetailsNotFoundException, MovieInvalidNameException {
+
+    movieDTOValidator.validate(movieDTO);
+
         //I need to create the new movie
         //I need to create Movie object from MovieDTO object
-
     Movie movie = modelMapper.map(movieDTO,Movie.class);
     //movie object should contain status object that must not null :injecting the status object in movie obj
     Status status= statusService.getStatusDetails(movieDTO.getStatus_id());

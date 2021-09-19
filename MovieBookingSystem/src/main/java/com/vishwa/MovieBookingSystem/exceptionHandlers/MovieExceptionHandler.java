@@ -1,6 +1,8 @@
 package com.vishwa.MovieBookingSystem.exceptionHandlers;
 
+import com.vishwa.MovieBookingSystem.dtos.InvalidResponseDTO;
 import com.vishwa.MovieBookingSystem.exceptions.MovieDetailNotFoundException;
+import com.vishwa.MovieBookingSystem.exceptions.MovieInvalidNameException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;
@@ -24,11 +26,19 @@ public class MovieExceptionHandler {
      * this annotation, indicate to this method, that if the given exception happens,
      *  below method should be called
      * */
-
     public ResponseEntity handleMovieNotFoundException() {
         LOGGER.error("Exception happened, movie id not found");
         return new ResponseEntity("No movie found with given movieId", HttpStatus.BAD_REQUEST);
 
     }
+
+    @ExceptionHandler(value = MovieInvalidNameException.class)
+    public ResponseEntity handleMovieNameInvalidException(){
+        InvalidResponseDTO iRD = new InvalidResponseDTO("Movie name passed is empty/not correct",HttpStatus.BAD_REQUEST.toString(),"Movie resource");
+        return new ResponseEntity(iRD,HttpStatus.BAD_REQUEST);
+        //return new ResponseEntity("Movie name not passed/invalid",HttpStatus.BAD_REQUEST);
+    }
+
+
 
 }

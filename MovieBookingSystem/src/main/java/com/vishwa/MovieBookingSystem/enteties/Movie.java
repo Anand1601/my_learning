@@ -1,6 +1,6 @@
 package com.vishwa.MovieBookingSystem.enteties;
 
-import org.codehaus.plexus.classworlds.strategy.Strategy;
+
 
 import javax.persistence.*;
 import java.time.LocalDateTime;

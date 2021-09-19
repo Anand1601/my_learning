@@ -1,6 +1,7 @@
 package com.vishwa.MovieBookingSystem;
 
 import com.vishwa.MovieBookingSystem.Services.InitService;
+import com.vishwa.MovieBookingSystem.daos.CityDao;
 import org.modelmapper.ModelMapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -22,12 +23,16 @@ public class  MovieBookingSystemApplication {
 
 	public static void main(String[] args) {
 
+
+
 		/*
 		return type of  SpringApplication.run(MovieBookingSystemApplication.class, args);
 		is application context
 		 */
 		ApplicationContext ctx= SpringApplication.run(MovieBookingSystemApplication.class, args);
 		System.out.println("Hello spring");
+
+
 
       LOGGER.debug("writing for debug");
       LOGGER.info("writing for info");
